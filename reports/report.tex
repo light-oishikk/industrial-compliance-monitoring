@@ -38,7 +38,7 @@ Indian Institute of Information Technology (IIIT), Dharwad, Karnataka 580009, In
 \maketitle
 
 \begin{abstract}
-This paper presents an automated pipeline for monitoring environmental compliance in industrial zones using multi-temporal Sentinel-2 satellite imagery and supervised machine learning. We analyze two industrial areas in Bengaluru\textemdash Peenya and Whitefield\textemdash across a four-year observation period (2020 to 2024) to quantify green cover reduction and detect unauthorized construction activity. The proposed system integrates programmatic data acquisition via the SpatioTemporal Asset Catalog (STAC) API, spectral index computation (NDVI, NDBI, NBI), Random Forest classification achieving 97.7--98.7\% accuracy on held-out test sets, and automated violation extraction with geo-referenced coordinates. Experimental results indicate significant green cover loss of 22.6\% in Peenya and 27.8\% in Whitefield, with 126 geo-tagged violation zones identified across both regions. The modular pipeline architecture enables direct extension to arbitrary geographic areas, supporting scalable, continuous environmental surveillance for state pollution control boards.
+This paper presents an automated pipeline for monitoring environmental compliance in industrial zones using multi-temporal Sentinel-2 satellite imagery and supervised machine learning. We analyze two industrial areas in Bengaluru\textemdash Peenya and Whitefield\textemdash across a four-year observation period (2020 to 2024) to quantify green cover reduction and detect unauthorized construction activity. The proposed system integrates KGIS (Karnataka Geographic Information System) boundary data for study area delineation, programmatic Sentinel-2 data acquisition via the STAC API, spectral index computation (NDVI, NDBI, NBI), Random Forest classification achieving 97.7--98.7\% accuracy on held-out test sets, and automated violation extraction with geo-referenced coordinates. Experimental results indicate significant green cover loss of 24.1\% in Peenya and 27.8\% in Whitefield, with 126 geo-tagged violation zones identified across both regions. The modular pipeline architecture enables direct extension to arbitrary geographic areas, supporting scalable, continuous environmental surveillance for state pollution control boards.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -285,7 +285,7 @@ Morphological closing (5$\times$5 structuring element, 3~iterations) is applied 
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{before_after_peenya.png}
-    \caption{Temporal change analysis for Peenya Industrial Area. \textit{Top:} true-color RGB composites (2020 vs.\ 2024). \textit{Bottom:} NDVI heatmaps showing vegetation density decline from a mean of 0.277 to 0.169, corresponding to a 22.6\% reduction in green cover.}
+    \caption{Temporal change analysis for Peenya Industrial Area (clipped to KGIS Bangalore-North taluk). \textit{Top:} true-color RGB composites (2020 vs.\ 2024). \textit{Bottom:} NDVI heatmaps showing vegetation density decline corresponding to a 24.1\% reduction in green cover.}
     \label{fig:beforeafter}
 \end{figure}
 
@@ -293,7 +293,7 @@ Morphological closing (5$\times$5 structuring element, 3~iterations) is applied 
 
 \subsection{Change Detection}
 
-Table~\ref{tab:change} summarizes the bitemporal change detection results. Peenya experienced a 22.56\% reduction in green cover with 29.6\% vegetation loss, while Whitefield exhibits more severe degradation: 27.8\% green cover decline with 17.72\% attributed to new construction activity, reflecting the ongoing IT park and residential expansion in that corridor.
+Table~\ref{tab:change} summarizes the bitemporal change detection results. Peenya experienced a 24.06\% reduction in green cover with 27.23\% vegetation loss, while Whitefield exhibits more severe degradation: 27.8\% green cover decline with 17.72\% attributed to new construction activity, reflecting the ongoing IT park and residential expansion in that corridor.
 
 \begin{table}[t]
 \centering
@@ -303,11 +303,11 @@ Table~\ref{tab:change} summarizes the bitemporal change detection results. Peeny
 \toprule
 \textbf{Metric} & \textbf{Peenya} & \textbf{Whitefield} \\
 \midrule
-Green Cover 2020 (\%) & 55.71 & 71.25 \\
-Green Cover 2024 (\%) & 33.15 & 43.45 \\
-Net Change (\%) & $-$22.56 & $-$27.80 \\
-Vegetation Loss (\%) & 29.60 & 38.92 \\
-New Construction (\%) & 4.59 & 17.72 \\
+Green Cover 2020 (\%) & 52.57 & 71.25 \\
+Green Cover 2024 (\%) & 28.51 & 43.45 \\
+Net Change (\%) & $-$24.06 & $-$27.80 \\
+Vegetation Loss (\%) & 27.23 & 38.92 \\
+New Construction (\%) & 4.56 & 17.72 \\
 Violation Zones Detected & 54 & 72 \\
 Risk Level & \textsc{medium} & \textsc{medium} \\
 \bottomrule
