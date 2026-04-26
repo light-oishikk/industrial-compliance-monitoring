@@ -131,6 +131,10 @@ def plot_annotated_imagery():
             transform = src.transform
             crs = src.crs
         rgb = np.stack([normalize(data[2]), normalize(data[1]), normalize(data[0])], axis=-1)
+        # Set KGIS-masked pixels (band 7 = mask) to white
+        if data.shape[0] >= 7:
+            mask = data[6] < 0.5
+            rgb[mask] = 1.0
 
         # Load change mask
         with rasterio.open(change_path) as src:
@@ -196,6 +200,13 @@ def plot_before_after():
         with rasterio.open(t2) as s: d2 = s.read()
         rgb1 = np.stack([normalize(d1[2]), normalize(d1[1]), normalize(d1[0])], axis=-1)
         rgb2 = np.stack([normalize(d2[2]), normalize(d2[1]), normalize(d2[0])], axis=-1)
+        # Set KGIS-masked pixels to white
+        if d1.shape[0] >= 7:
+            m1 = d1[6] < 0.5
+            rgb1[m1] = 1.0
+        if d2.shape[0] >= 7:
+            m2 = d2[6] < 0.5
+            rgb2[m2] = 1.0
 
         # NDVI comparison
         ndvi1_p = os.path.join(BASE, "data", "processed", zone, "T1_2020_indices", "NDVI.tif")
@@ -227,8 +238,8 @@ def plot_before_after():
 # ---- 6. Land Cover Classification Maps ----
 def plot_landcover_comparison():
     print("  Generating land cover classification maps...")
-    classes = ["Masked", "Dense Veg", "Sparse Veg", "Built-up", "Bare Soil", "Water"]
-    colors = ["#1a1a1a", "#228B22", "#90EE90", "#CD853F", "#DEB887", "#4169E1"]
+    classes = ["Outside KGIS Boundary", "Dense Veg", "Sparse Veg", "Built-up", "Bare Soil", "Water"]
+    colors = ["#f5f5f5", "#228B22", "#90EE90", "#CD853F", "#DEB887", "#4169E1"]
     cmap = ListedColormap(colors)
 
     for zone in ["peenya", "whitefield"]:
@@ -321,8 +332,8 @@ th {{ background: #f0f4ff; font-weight: bold; }}
 
 <h2>Methodology</h2>
 <ol>
-<li><strong>Data Acquisition:</strong> Sentinel-2 L2A imagery via Microsoft Planetary Computer STAC API</li>
-<li><strong>Preprocessing:</strong> Cloud masking (SCL), atmospheric correction (L2A), band resampling (20m to 10m)</li>
+<li><strong>Data Acquisition:</strong> KGIS Taluk boundaries (KSRSAC) + Sentinel-2 L2A imagery via STAC API</li>
+<li><strong>Preprocessing:</strong> Cloud masking (SCL), KGIS boundary masking, band resampling (20m to 10m)</li>
 <li><strong>Spectral Analysis:</strong> NDVI (vegetation), NDBI (built-up), NBI (new construction) index computation</li>
 <li><strong>ML Classification:</strong> Random Forest trained on 6 spectral bands, validated with 70/30 split</li>
 <li><strong>Change Detection:</strong> Bitemporal differencing of spectral indices with adaptive thresholds</li>
