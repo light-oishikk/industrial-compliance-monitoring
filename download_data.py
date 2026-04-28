@@ -469,7 +469,7 @@ if __name__ == "__main__":
     os.makedirs(BOUNDARY_DIR, exist_ok=True)
 
     # Step 1: Boundaries
-    download_osm_boundaries()
+    load_kgis_boundaries()
 
     # Step 2: Sentinel-2
     download_sentinel2()
