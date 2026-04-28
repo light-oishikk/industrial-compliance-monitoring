@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Compliance Report - Peenya</title>
+<style>
+body { font-family: 'Segoe UI', sans-serif; max-width: 900px; margin: 40px auto; padding: 20px; color: #333; }
+h1 { border-bottom: 3px solid #2563eb; padding-bottom: 10px; }
+h2 { color: #1e40af; margin-top: 30px; }
+table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+th { background: #f0f4ff; font-weight: bold; }
+.risk-badge { display: inline-block; padding: 8px 24px; border-radius: 8px; color: white; font-size: 24px; font-weight: bold; background: #f59e0b; }
+.metric { display: inline-block; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px 25px; margin: 5px; text-align: center; }
+.metric .value { font-size: 28px; font-weight: bold; color: #1e40af; }
+.metric .label { font-size: 12px; color: #64748b; }
+</style></head><body>
+<h1>Environmental Compliance Report</h1>
+<p><strong>Zone:</strong> Peenya Industrial Area, Bengaluru, Karnataka</p>
+<p><strong>Analysis Period:</strong> March 2020 (Baseline) to March 2024 (Recent)</p>
+<p><strong>Data Source:</strong> Sentinel-2 L2A (ESA Copernicus) | 10m Resolution</p>
+<p><strong>Generated:</strong> Automated Pipeline v1.0</p>
+
+<h2>Risk Assessment</h2>
+<p>Overall Risk Level: <span class="risk-badge">MEDIUM</span></p>
+<div>
+<div class="metric"><div class="value">52.6%</div><div class="label">Green Cover 2020</div></div>
+<div class="metric"><div class="value">28.5%</div><div class="label">Green Cover 2024</div></div>
+<div class="metric"><div class="value" style="color:#ef4444">-24.1%</div><div class="label">Change</div></div>
+<div class="metric"><div class="value">27.2%</div><div class="label">Vegetation Loss</div></div>
+<div class="metric"><div class="value">4.6%</div><div class="label">New Construction</div></div>
+</div>
+
+<h2>ML Model Performance</h2>
+<table><tr><th>Metric</th><th>Value</th></tr>
+<tr><td>Algorithm</td><td>Random Forest (100 trees, max_depth=15)</td></tr>
+<tr><td>Training Samples</td><td>405,333</td></tr>
+<tr><td>Test Samples</td><td>173,715</td></tr>
+<tr><td>Accuracy</td><td>97.74%</td></tr>
+<tr><td>Precision (weighted)</td><td>98.06%</td></tr>
+<tr><td>Recall (weighted)</td><td>97.74%</td></tr>
+<tr><td>F1-Score (weighted)</td><td>97.83%</td></tr></table>
+
+<h2>Violation Alerts</h2>
+<p>Total violations detected: <strong>54</strong></p>
+<table><tr><th>#</th><th>Coordinates (Lat, Lon)</th><th>Type</th><th>Area (ha)</th></tr>
+<tr><td>1</td><td>13.039972, 77.519910</td><td>Vegetation Loss</td><td>1457.46</td></tr>
+<tr><td>2</td><td>13.048469, 77.550357</td><td>Both</td><td>58.37</td></tr>
+<tr><td>3</td><td>13.061553, 77.527628</td><td>Both</td><td>4.18</td></tr>
+<tr><td>4</td><td>13.068390, 77.549586</td><td>Both</td><td>3.1</td></tr>
+<tr><td>5</td><td>13.064523, 77.485584</td><td>Both</td><td>2.64</td></tr>
+<tr><td>6</td><td>13.062432, 77.490943</td><td>Both</td><td>1.83</td></tr>
+<tr><td>7</td><td>13.068270, 77.504363</td><td>Both</td><td>1.71</td></tr>
+<tr><td>8</td><td>13.068750, 77.524504</td><td>Both</td><td>1.68</td></tr>
+<tr><td>9</td><td>13.064433, 77.500216</td><td>Both</td><td>1.16</td></tr>
+<tr><td>10</td><td>13.064203, 77.519019</td><td>Both</td><td>0.79</td></tr>
+<tr><td>11</td><td>13.055819, 77.484879</td><td>New Construction</td><td>0.63</td></tr>
+<tr><td>12</td><td>13.065743, 77.533354</td><td>Both</td><td>0.59</td></tr>
+<tr><td>13</td><td>13.065410, 77.512158</td><td>Both</td><td>0.52</td></tr>
+<tr><td>14</td><td>13.063853, 77.483511</td><td>Both</td><td>0.44</td></tr>
+<tr><td>15</td><td>13.068891, 77.523998</td><td>New Construction</td><td>0.43</td></tr>
+<tr><td>16</td><td>13.064293, 77.536721</td><td>Both</td><td>0.32</td></tr>
+<tr><td>17</td><td>13.067440, 77.521799</td><td>Both</td><td>0.25</td></tr>
+<tr><td>18</td><td>13.068101, 77.542221</td><td>Both</td><td>0.24</td></tr>
+<tr><td>19</td><td>13.065079, 77.491506</td><td>Both</td><td>0.22</td></tr>
+<tr><td>20</td><td>13.067532, 77.485329</td><td>Both</td><td>0.2</td></tr>
+<tr><td>21</td><td>13.056053, 77.489528</td><td>New Construction</td><td>0.17</td></tr>
+<tr><td>22</td><td>13.064960, 77.550885</td><td>Both</td><td>0.17</td></tr>
+<tr><td>23</td><td>13.067122, 77.508094</td><td>Both</td><td>0.16</td></tr>
+<tr><td>24</td><td>13.063939, 77.525358</td><td>Both</td><td>0.16</td></tr>
+<tr><td>25</td><td>13.067614, 77.556422</td><td>Both</td><td>0.15</td></tr>
+<tr><td>26</td><td>13.062983, 77.508288</td><td>Both</td><td>0.15</td></tr>
+<tr><td>27</td><td>13.056523, 77.555104</td><td>New Construction</td><td>0.13</td></tr>
+<tr><td>28</td><td>13.068131, 77.532985</td><td>Both</td><td>0.12</td></tr>
+<tr><td>29</td><td>13.061923, 77.557859</td><td>Both</td><td>0.12</td></tr>
+<tr><td>30</td><td>13.064813, 77.494357</td><td>Both</td><td>0.11</td></tr>
+<tr><td>31</td><td>13.067315, 77.515640</td><td>Both</td><td>0.1</td></tr>
+<tr><td>32</td><td>13.065002, 77.548665</td><td>Both</td><td>0.1</td></tr>
+<tr><td>33</td><td>13.058389, 77.542306</td><td>New Construction</td><td>0.09</td></tr>
+<tr><td>34</td><td>13.068630, 77.497012</td><td>Both</td><td>0.08</td></tr>
+<tr><td>35</td><td>13.065542, 77.531011</td><td>Both</td><td>0.08</td></tr>
+<tr><td>36</td><td>13.062925, 77.496184</td><td>Both</td><td>0.08</td></tr>
+<tr><td>37</td><td>13.068255, 77.551902</td><td>New Construction</td><td>0.07</td></tr>
+<tr><td>38</td><td>13.067541, 77.526871</td><td>Both</td><td>0.07</td></tr>
+<tr><td>39</td><td>13.065650, 77.549968</td><td>Both</td><td>0.07</td></tr>
+<tr><td>40</td><td>13.062019, 77.534974</td><td>Both</td><td>0.07</td></tr>
+<tr><td>41</td><td>13.063075, 77.497903</td><td>New Construction</td><td>0.06</td></tr>
+<tr><td>42</td><td>13.068908, 77.559277</td><td>Both</td><td>0.06</td></tr>
+<tr><td>43</td><td>13.069424, 77.482048</td><td>Both</td><td>0.06</td></tr>
+<tr><td>44</td><td>13.066674, 77.516922</td><td>Both</td><td>0.06</td></tr>
+<tr><td>45</td><td>13.069683, 77.502448</td><td>New Construction</td><td>0.05</td></tr>
+<tr><td>46</td><td>13.065674, 77.553704</td><td>New Construction</td><td>0.05</td></tr>
+<tr><td>47</td><td>13.059500, 77.507363</td><td>New Construction</td><td>0.05</td></tr>
+<tr><td>48</td><td>13.069484, 77.483963</td><td>Both</td><td>0.05</td></tr>
+<tr><td>49</td><td>13.065384, 77.558594</td><td>Both</td><td>0.05</td></tr>
+<tr><td>50</td><td>13.065422, 77.488079</td><td>Both</td><td>0.05</td></tr>
+<tr><td>51</td><td>13.065068, 77.522523</td><td>Both</td><td>0.05</td></tr>
+<tr><td>52</td><td>13.063655, 77.531517</td><td>Both</td><td>0.05</td></tr>
+<tr><td>53</td><td>13.063052, 77.555078</td><td>Both</td><td>0.05</td></tr>
+<tr><td>54</td><td>13.062913, 77.510596</td><td>Both</td><td>0.05</td></tr>
+</table>
+
+<h2>Methodology</h2>
+<ol>
+<li><strong>Data Acquisition:</strong> KGIS Taluk boundaries (KSRSAC) + Sentinel-2 L2A imagery via STAC API</li>
+<li><strong>Preprocessing:</strong> Cloud masking (SCL), KGIS boundary masking, band resampling (20m to 10m)</li>
+<li><strong>Spectral Analysis:</strong> NDVI (vegetation), NDBI (built-up), NBI (new construction) index computation</li>
+<li><strong>ML Classification:</strong> Random Forest trained on 6 spectral bands, validated with 70/30 split</li>
+<li><strong>Change Detection:</strong> Bitemporal differencing of spectral indices with adaptive thresholds</li>
+<li><strong>Violation Extraction:</strong> Connected component analysis with geo-coordinate conversion</li>
+</ol>
+
+<p style="color:#888; font-size:12px; margin-top:40px; border-top:1px solid #eee; padding-top:10px;">
+Industrial Environmental Compliance Monitoring System | ML Course Project | IIIT Dharwad</p>
+</body></html>

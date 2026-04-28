@@ -1,8 +1,8 @@
 """
 Build a fully static version of the dashboard for deployment.
-Copies all images and bakes API data into a static JSON file.
+Copies all images, compliance reports, and bakes API data into a static JSON file.
 """
-import os, json, shutil
+import os, json, shutil, re
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 DEPLOY = os.path.join(BASE, "deploy")
@@ -81,26 +81,41 @@ def build():
                     shutil.copy2(os.path.join(zone_src, f), os.path.join(zone_dst, f))
                     print(f"  [IMG] frontend/assets/{zone}/{f}")
 
-    # --- 3. Create static index.html ---
-    # Read the original and patch the fetch call
+    # --- 3. Copy compliance reports ---
+    report_dir = os.path.join(DEPLOY, "report")
+    os.makedirs(report_dir, exist_ok=True)
+    reports_src = os.path.join(BASE, "reports")
+    for zone in ["peenya", "whitefield"]:
+        src = os.path.join(reports_src, f"compliance_report_{zone}.html")
+        if os.path.exists(src):
+            # Copy as report/<zone>.html (matching the /report/<zone> route)
+            dst = os.path.join(report_dir, f"{zone}.html")
+            shutil.copy2(src, dst)
+            print(f"  [RPT] report/{zone}.html")
+
+    # --- 4. Create static index.html ---
     with open(os.path.join(BASE, "frontend", "index.html"), "r", encoding="utf-8") as f:
         html = f.read()
 
-    # Replace the fetch("/api/zones") call with fetch("data.json")
+    # Replace fetch("/api/zones") with fetch("data.json")
     html = html.replace('fetch("/api/zones")', 'fetch("data.json")')
+
+    # Make all image paths relative (remove leading /)
+    html = html.replace("src: `/img/", "src: `img/")
+
+    # Fix report paths: /report/${name} -> report/${name}.html
+    html = html.replace("report: `/report/${name}`", "report: `report/${name}.html`")
 
     with open(os.path.join(DEPLOY, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)
     print(f"  [OK] index.html")
 
-    # --- 4. Summary ---
+    # --- 5. Summary ---
     total_files = sum(len(files) for _, _, files in os.walk(DEPLOY))
     total_size = sum(os.path.getsize(os.path.join(dp, f)) for dp, _, fn in os.walk(DEPLOY) for f in fn)
     print(f"\n  Deploy folder ready: {DEPLOY}")
     print(f"  Total files: {total_files}")
     print(f"  Total size: {total_size / 1024 / 1024:.1f} MB")
-    print(f"\n  To deploy, run:")
-    print(f"    npx -y netlify-cli deploy --dir=deploy --prod")
 
 if __name__ == "__main__":
     build()
